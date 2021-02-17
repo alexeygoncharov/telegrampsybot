@@ -29,7 +29,7 @@ bot.command('generate', (ctx) => {
     return ctx.reply('switching to generate chatmode')
 });
 bot.on('text',async () => {
-    //generateAPChatbot();
+    //generateAPChatbot(); uncomment if want to use generation api
     completionsAPChatbot()
 })
 bot.launch()

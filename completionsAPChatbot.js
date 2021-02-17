@@ -57,14 +57,27 @@ module.exports = async function(isRefresh) {
 
     const message = ctx.message.text;
     chatsEntropy[user_id] = chatsEntropy[user_id] || generatorOfEntropy;
+
     const question = chatsEntropy[user_id]  + `\nHuman: ${message} \nAI:`;
     chatsEntropy[user_id] += `\nHuman: ${message}`;
-    const prompt = decodeURIComponent(encodeURIComponent(question));
-    const gptResponse = await OpenAI.complete({...chatbotConf, prompt});
 
-    const messageFromAI = gptResponse?.data?.choices[0]?.text || ERROR_ANSWER_CODE;
-    chatsEntropy[user_id] += `\nAI: ${messageFromAI}`;
-    console.dir(chatsEntropy);
-    console.log('RESPONSE DATA:', gptResponse?.data || 'NO RESPONSE');
-    ctx.reply(messageFromAI);
+    const prompt = decodeURIComponent(encodeURIComponent(question));
+
+    try {
+        const gptResponse = await OpenAI.complete({...chatbotConf, prompt});
+
+        const messageFromAI = gptResponse?.data?.choices[0]?.text || ERROR_ANSWER_CODE;
+        chatsEntropy[user_id] += `\nAI: ${messageFromAI}`;
+
+        console.dir(chatsEntropy);
+        console.log('RESPONSE DATA:', gptResponse?.data || 'NO RESPONSE');
+        ctx.reply(messageFromAI);
+    } catch (err) {
+        console.error('ERROR FROM OpenAI occured!')
+        console.dir(chatsEntropy);
+
+        chatsEntropy[user_id] = generatorOfEntropy;
+
+        ctx.reply(ERROR_ANSWER_CODE);
+    }
 }
