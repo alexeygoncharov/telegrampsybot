@@ -1,5 +1,5 @@
 {
-  "name": "openai-telegram-bot",
+  "name": "telegrampsybot",
   "version": "0.1",
   "description": "telegram bot that uses openAI algo",
   "main": "index.js",
@@ -7,16 +7,8 @@
     "start": "nodemon --inspect index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/leovvay/openAI-telegram-bot.git"
-  },
-  "author": "Wlad Leonchyk",
+  "author": "Alex Goncharov",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/leovvay/openAI-telegram-bot/issues"
-  },
-  "homepage": "https://github.com/leovvay/openAI-telegram-bot#readme",
   "dependencies": {
     "axios": "^0.21.4",
     "dotenv": "^8.2.0",
