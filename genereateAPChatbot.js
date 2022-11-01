@@ -1,10 +1,10 @@
 const OpenAI = require('./service/openAI');
 
 let generatorOfEntropy  =
-    "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n" +
+    "Данный диалог психолога с клиентом. Психолог очень дружелюбный, полезный, открытый, веселый и добрый. Его главная задача - помочь собеседнику решить психологическую проблему. Психолог и клиент говорят друг с другом только на русском языке. Очень умный и максимально полезный. \n" +
     "\n" +
-    "Human: Hello, who are you?\n" +
-    "AI: I am an AI created by OpenAI. How can I help you today?\n"
+    "Клиент: Здравствуйте, у меня есть проблема.\n" +
+    "Психолог: Расскажите подробнее о вашей проблеме, пожалуйста.\n"
 
 
 const chatsEntropy = {
@@ -28,7 +28,7 @@ function parseAIResponse(stream) {
     chatsEntropy[ctx.message.chat.username] = response;
     const sentenseArray = response.split('\n');
     const lastSentense = sentenseArray[sentenseArray.length - 1];
-    const parsedSentense = lastSentense.replace('AI: ', '');
+    const parsedSentense = lastSentense.replace('Психолог: ', '');
     return parsedSentense;
 }
 
@@ -43,7 +43,7 @@ module.exports = async function(isRefresh) {
 
     const message = ctx.message.text;
     chatsEntropy[user_id] = chatsEntropy[user_id] || generatorOfEntropy;
-    const question = chatsEntropy[user_id]  + `\nHuman: ${message}\nAI: `;
+    const question = chatsEntropy[user_id]  + `\nКлиент: ${message}\nПсихолог: `;
     const gptResponse = await OpenAI.generate({promt: question});
     const messageUNPARSEDFromAI = parseAIResponse(gptResponse);
     const messageParsed = decodeURIComponent(messageUNPARSEDFromAI) || ERROR_ANSWER_CODE;

@@ -7,19 +7,19 @@
 const config = {
     completionURL: (engine) => {
         if (!engine) {
-            engine = 'davinci';
+            engine = 'text-davinci-002';
         }
         return `https://api.openai.com/v1/engines/${engine}/completions`;
     },
     generateURL: (engine) => {
         if (!engine) {
-            engine = 'davinci';
+            engine = 'text-davinci-002';
         }
         return `https://api.openai.com/v1/engines/${engine}/generate`;
     },
     searchURL: (engine) => {
         if (!engine) {
-            engine = 'davinci';
+            engine = 'text-davinci-002';
         }
         return `https://api.openai.com/v1/engines/${engine}/search`;
     }
@@ -66,7 +66,7 @@ class OpenAI {
         var options = {
             'method': 'GET',
             'hostname': 'api.openai.com',
-            'path': `/v1/engines/davinci/generate?best_of=1&completions=1&context=${encodeURIComponent(opts.promt)}&frequency_penalty=0&length=160&presence_penalty=0.6&temperature=0.9&top_p=1&stop=%0A&stop=%20Human%3A&stop=%20AI%3A`,
+            'path': `/v1/engines/davinci/generate?best_of=1&completions=1&context=${encodeURIComponent(opts.promt)}&frequency_penalty=0&length=160&presence_penalty=0.6&temperature=1&top_p=1&stop=%0A&stop=%20Human%3A&stop=%20AI%3A`,
             'headers': {
                 'Authorization': `Bearer ${process.env.OPEN_AI_TOKEN}`,
                 'authority': 'api.openai.com',

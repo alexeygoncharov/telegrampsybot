@@ -9,7 +9,7 @@ const completionsAPChatbot = require('./completionsAPChatbot');
 global.bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.start((ctx) => {
-    ctx.reply('Hey Chika ya hikka, lets talk!')
+    ctx.reply('Привет! Я - твой личный психолог. Я готов тебе помочь. Пожалуйста, напишите свой вопрос. С чем вам помочь?')
 })
 bot.use((ctx, next) => {
     global.ctx = ctx;
@@ -17,19 +17,18 @@ bot.use((ctx, next) => {
     next();
 })
 bot.hears('hi', async(ctx) => ctx.reply('Hello sweeetheart!!! ;3'));
-bot.hears('hello', async(ctx) => ctx.reply('Hello sweeetheart!!! ;3'));
-bot.hears('привет', async(ctx) => ctx.reply('Иди нахуй'));
+
+bot.on('sticker', (ctx) => ctx.reply('👍'));
 
 bot.command('refresh', (ctx) => {
     //chatsEntropy[ctx.message.chat.id] = {}
     generateAPChatbot(true);
     return ctx.reply('refresh feed')
 });
-bot.command('generate', (ctx) => {
-    return ctx.reply('switching to generate chatmode')
-});
+
 bot.on('text',async () => {
     //generateAPChatbot(); uncomment if want to use generation api
     completionsAPChatbot()
+    ctx.replyWithChatAction('typing');
 })
 bot.launch()
