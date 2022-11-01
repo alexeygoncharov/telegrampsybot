@@ -9,7 +9,7 @@ const completionsAPChatbot = require('./completionsAPChatbot');
 global.bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.start((ctx) => {
-    ctx.reply('Привет! Я - твой личный психолог. Я готов тебе помочь. Пожалуйста, напишите свой вопрос. С чем вам помочь?')
+    ctx.reply('Привет! Я - твой личный психолог. Я готов тебе помочь. Ты можешь задать мне любой вопрос и получить ответ. С чем вам помочь?')
 })
 bot.use((ctx, next) => {
     global.ctx = ctx;
